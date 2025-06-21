@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader, Spinner, Switch, Typography } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Categorydetails_info from '../cards/categorydetails_info';
+import Categorydetails_info from '../cards/Categorydetailsinfo';
 import Category_items from '../cards/Category_items';
 function Categorydetails() {
   const token = localStorage.getItem('authtoken')
