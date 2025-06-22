@@ -123,20 +123,12 @@ function Actionbtn() {
       }
       )
       const data = await response.json();
-
       if (data.success) {
-        if (postcode.is_active === true) {
-          toast.success('Post Code  Deactivated Successfully', {
-            position: 'bottom-center',
-
-          })
-
+        if (is_active) {
+          toast.success('Post Code  Activated Successfully')
         }
         else {
-          toast.success('Post Code Activated Successfully', {
-            position: 'bottom-center',
-
-          })
+          toast.success('Post Code  Deactivated Successfully')
         }
         tabledata();
       }
@@ -202,7 +194,6 @@ function Actionbtn() {
   }
   const delete_area = async () => {
     try {
-
       const response = await fetch(`https://staging-laundry-free-cdd931a42c66.herokuapp.com/api/areas/${action}`, {
         method: 'DELETE',
         headers: {
@@ -210,11 +201,9 @@ function Actionbtn() {
           'Accept': 'application/json',
           'Authorization': `bearer ${token}`,
         },
-
       }
       )
       const data = await response.json();
-
       if (data.success === true) {
         setFetcherror("")
         toast.success('Area Deleted')
@@ -223,12 +212,8 @@ function Actionbtn() {
       }
     }
     catch (error) {
-
-
     }
   }
-
-
   useEffect(() => {
     tabledata()
   }, [action]);
@@ -311,7 +296,6 @@ function Actionbtn() {
                 <CardHeader variant="gradient" color="gray" className="p-6  flex justify-between z-20 text-start">
                   <Typography variant="h6" color="white">
                     Post Codes
-
                   </Typography>
                   <span role='button' onClick={() => setShowNew(true)} className='fa-solid fa-plus px-4 py-2 bg-white hover:bg-lightsilver text-black rounded '></span>
                 </CardHeader>
@@ -355,7 +339,6 @@ function Actionbtn() {
 
         </div>
       )}
-
       {showNew && (
         <Card>
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-[1000] transform transform-transition duration-300">
@@ -415,12 +398,10 @@ function Actionbtn() {
               </div>
             </div>
           </div>
-
         </Card>
       )}
       {areaeditchecker && (
         <Card >
-
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-[1000] transform transform-transition duration-300">
             <div className="bg-white rounded-lg  p-4 py-10 px-10 w-[100%] max-w-xl shadow-lg relative animate-fadeInScale">
               <button
@@ -441,10 +422,8 @@ function Actionbtn() {
                 />
               </label>
               <div className='flex justify-end gap-4'>
-
                 <button
                   onClick={() => areaedit()}
-
                   className="bg-gradient-to-r font-semibold from-gray-900 to-gray-800 text-white mt-4 px-8 py-3 rounded rounded-lg  hover:scale-95 transform transform-transition duration-200"
                 >
                   Save
