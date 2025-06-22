@@ -14,6 +14,8 @@ function Actionbtn() {
   const [showNew, setShowNew] = useState(false);
   const [loader, setLoader] = useState(true)
   const [areaname, setAreaname] = useState('')
+  const [buttonLoader, setbuttonLoader] = useState(false)
+
 
   const [tableloader, setTableloader] = useState(false)
   const [postCodes, setPostCodes] = useState()
@@ -52,6 +54,7 @@ function Actionbtn() {
     }
   }
   const areaedit = async () => {
+    setbuttonLoader(true)
     try {
       const response = await fetch(`https://staging-laundry-free-cdd931a42c66.herokuapp.com/api/areas/${action}`, {
         method: 'PUT',
@@ -68,6 +71,7 @@ function Actionbtn() {
       const data = await response.json();
       if (data.success === true) {
         setLoader(false)
+        setbuttonLoader(false)
         tabledata();
         toast.success('The Name Has Been Changed')
         setAreaeditchecker(null)
@@ -100,8 +104,13 @@ function Actionbtn() {
       const data = await response.json();
       if (data.success) {
         setTableloader(false)
+        if (slot.is_active === true) {
+          toast.success('Slot Deactivated successfully ✅');
+        }
+        else {
+          toast.success('Slot Activated successfully ✅');
+        }
         tabledata();
-        toast.success('Slot Deactivated successfully ✅');
       }
     }
     catch (error) {
@@ -123,12 +132,16 @@ function Actionbtn() {
       }
       )
       const data = await response.json();
+
       if (data.success) {
-        if (is_active) {
-          toast.success('Post Code  Activated Successfully')
+        if (postcode.is_active === true) {
+          toast.success('Post Code  Deactivated Successfully')
         }
         else {
-          toast.success('Post Code  Deactivated Successfully')
+          toast.success('Post Code Activated Successfully', {
+            position: 'bottom-center',
+
+          })
         }
         tabledata();
       }
@@ -138,6 +151,7 @@ function Actionbtn() {
   }
   const create_postcode = async () => {
     try {
+      setbuttonLoader(true)
       setpPostcode_error("")
       console.log(createcode)
       const response = await fetch(`https://staging-laundry-free-cdd931a42c66.herokuapp.com/api/postcodes`, {
@@ -158,6 +172,7 @@ function Actionbtn() {
       console.log(data)
       if (data.success) {
         setShowNew(false)
+        setbuttonLoader(false)
         setpPostcode_error("")
         toast.success("Postcode created successfully ✅");
         tabledata();
@@ -172,6 +187,7 @@ function Actionbtn() {
   }
   const delete_postcode = async (codeid, postcode) => {
     try {
+      setbuttonLoader(true)
       const response = await fetch(`https://staging-laundry-free-cdd931a42c66.herokuapp.com/api/postcodes/${codeid}`, {
         method: 'DELETE',
         headers: {
@@ -183,6 +199,7 @@ function Actionbtn() {
       )
       const data = await response.json();
       if (data.success === true) {
+        setbuttonLoader(false)
         setFetcherror("")
         setConfirmdel(null)
         tabledata();
@@ -194,6 +211,7 @@ function Actionbtn() {
   }
   const delete_area = async () => {
     try {
+      setbuttonLoader(true)
       const response = await fetch(`https://staging-laundry-free-cdd931a42c66.herokuapp.com/api/areas/${action}`, {
         method: 'DELETE',
         headers: {
@@ -206,6 +224,7 @@ function Actionbtn() {
       const data = await response.json();
       if (data.success === true) {
         setFetcherror("")
+        setbuttonLoader(false)
         toast.success('Area Deleted')
         setConfirmdel(null)
         tabledata();
@@ -363,7 +382,8 @@ function Actionbtn() {
 
                 className="bg-black text-white mt-4 px-4 py-2 rounded rounded-lg w-full hover:scale-95 transform transform-transition duration-300"
               >
-                Create Postcode
+                {buttonLoader ? 'CREATING...' : 'Create Postcode'}
+
               </button>
             </div>
           </div>
@@ -393,7 +413,8 @@ function Actionbtn() {
 
                   className="bg-gradient-to-r font-semibold from-gray-900 to-gray-800 text-white mt-4 px-8 py-3 rounded rounded-lg  hover:scale-95 transform transform-transition duration-200"
                 >
-                  CONFIRM
+                  {buttonLoader ? 'DELETING...' : 'CONFIRM'}
+
                 </button>
               </div>
             </div>
@@ -426,7 +447,7 @@ function Actionbtn() {
                   onClick={() => areaedit()}
                   className="bg-gradient-to-r font-semibold from-gray-900 to-gray-800 text-white mt-4 px-8 py-3 rounded rounded-lg  hover:scale-95 transform transform-transition duration-200"
                 >
-                  Save
+                  {buttonLoader ? 'SAVING...' : 'SAVE'}
                 </button>
               </div>
             </div>
@@ -457,7 +478,7 @@ function Actionbtn() {
                   onClick={() => delete_area()}
                   className="bg-gradient-to-r font-semibold from-gray-900 to-gray-800 text-white mt-4 px-8 py-3 rounded rounded-lg  hover:scale-95 transform transform-transition duration-200"
                 >
-                  CONFIRM
+                  {buttonLoader ? 'DELETING...' : 'CONFIRM'}
                 </Link>
               </div>
             </div>

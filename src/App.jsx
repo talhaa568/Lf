@@ -33,10 +33,12 @@ function App() {
         toastStyle={{
           background: "#00000",
           color: "#111",
-          fontWeight: "bold",
-          borderRadius: "0.5rem",
+          fontWeight: "medium",
+          borderRadius: "0.7rem",
           padding: "1rem",
           fontSize: '14px',
+          fontFamily:'sans-serif',
+          fontStyle:'poppins'
         }}
       />
     </>
