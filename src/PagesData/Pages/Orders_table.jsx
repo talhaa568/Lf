@@ -43,7 +43,6 @@ function Orders_table({ pageid, pagedata, order_data }) {
         console.log('cat data', data)
         Set_Cat_added(true)
         SetItems_Data(data.result)
-
       }
     }
     catch (error) {
@@ -81,8 +80,9 @@ function Orders_table({ pageid, pagedata, order_data }) {
         SetLoader(false)
         setIs_AddOrder(false)
         toast.success('Order Added Successfully')
+        Set_Cat_added(false)
+        setIs_itemAdded(false)
         order_data();
-
       }
     }
     catch (error) {
