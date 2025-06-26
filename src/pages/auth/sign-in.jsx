@@ -56,7 +56,7 @@ const validationSchema = Yup.object().shape
     }
     else {
       setLoader(false)
-      if (validate.errors?.password) {
+        if (validate.errors?.password) {
         setError(validate.errors.password[0]);
       } else if (validate.errors?.email) {
         setError(validate.errors.email[0]);
